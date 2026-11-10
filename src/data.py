@@ -5,8 +5,8 @@ import tensorflow as tf
 
 from model import IMAGE_SIZE
 
-DATA_DIR = "data/data_set"
-LABELS_FILE = os.path.join(DATA_DIR, "annotations", "classification.csv")
+DATA_DIR = "data/drive_set"
+LABELS_FILE = os.path.join(DATA_DIR, "labels.csv")
 BATCH_SIZE = 8
 
 # Turn the label words into numbers: no cliff = 0, cliff = 1
@@ -28,7 +28,7 @@ def read_labels(split):
                 continue
 
             # The middle part of the path is the split: train, validate, or test
-            if image.split("/")[1] != split:
+            if row["split"] != split:
                 continue
 
             paths.append(os.path.join(DATA_DIR, image))
@@ -55,7 +55,7 @@ def load_data(split, shuffle=False):
 
 
 if __name__ == "__main__":
-    for split in ["train", "validate", "test"]:
+    for split in ["train", "val", "test"]:
         paths, labels = read_labels(split)
         cliffs = sum(label[0] for label in labels)
         print(f"{split}: {len(paths)} images ({int(cliffs)} cliff)")

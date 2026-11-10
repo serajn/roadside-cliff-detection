@@ -8,7 +8,7 @@ EPOCHS = 10
 
 def main():
     train_data = load_data("train", shuffle=True)
-    val_data = load_data("validate")
+    val_data = load_data("val")
     model = build_model()
 
     # Set up how the model learns and what we want to measure
